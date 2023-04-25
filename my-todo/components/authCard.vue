@@ -23,11 +23,13 @@
       </div>
       <div class="flex flex-col align-middle justify-center">
         <button
+          v-if="!isLoading"
           @click="submitData"
           class="bg-blue-500 w-24 py-2 rounded-full text-white self-end mt-3 shadow-xl"
         >
           {{ getAuthButtonText }}
         </button>
+        <LoadingIndicator class="self-end mt-1" v-if="isLoading" />
         <button @click="toggleAuthMode" class="text-center text-blue-600 mt-5">
           {{ getAuthText }}
         </button>
@@ -44,6 +46,7 @@
 
 <script>
 export default {
+    
   data() {
     return {
       isReg: false,
@@ -51,6 +54,7 @@ export default {
       password: "",
       confirmPassword: "",
       errorText: "",
+      isLoading: false,
     };
   },
   computed: {
@@ -75,6 +79,8 @@ export default {
   methods: {
     submitData() {
       if (this.validateUserImport()) {
+        this.isLoading=true;
+
       } else {
       }
     },
